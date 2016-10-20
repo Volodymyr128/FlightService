@@ -1,22 +1,21 @@
 package com.vbakhmatiuk.flightservice.api.rest;
 
+import com.vbakhmatiuk.flightservice.domain.Ticket;
 import com.vbakhmatiuk.flightservice.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import sun.security.krb5.internal.Ticket;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping(value = "/flightservice/tickets")
+@RequestMapping(value = "/flightservice")
 public class FlightController extends AbstractRequestHandler {
 
     @Autowired
     private TicketService ticketService;
 
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/tickets/{id}",
             method = RequestMethod.GET,
             produces = {"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
@@ -26,7 +25,8 @@ public class FlightController extends AbstractRequestHandler {
             @PathVariable("id") Long id,
             HttpServletRequest request,
             HttpServletResponse response) {
-//        Ticket ticket = this.ticketService.getTicket(id);
-return null;
+        Ticket ticket = this.ticketService.getTicket(id);
+        checkResourceFound(ticket);
+        return ticket;
     }
 }
