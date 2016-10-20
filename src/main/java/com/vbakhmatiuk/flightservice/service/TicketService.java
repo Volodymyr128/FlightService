@@ -16,7 +16,7 @@ public class TicketService implements ITicketService {
     private TicketRepository ticketRepository;
 
     public Ticket getTicket(Long id) {
-        log.info("Trying to get ticket by id");
+        log.debug("Trying to get ticket by id");
         return ticketRepository.findOne(id);
     }
 
